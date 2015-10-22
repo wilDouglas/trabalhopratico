@@ -20,6 +20,8 @@ public class Venda {
 
     public Venda(String estado) {
         this.estado = estado;
+        this.valorDesconto = 0;
+        itens = new ArrayList<>();
     }
     
     

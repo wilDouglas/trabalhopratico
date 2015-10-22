@@ -5,6 +5,7 @@
  */
 package ads.una.poo;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -35,9 +36,14 @@ public class Estoque implements InterfaceEstoque {
             if (lote.getProdutos().size() > 0) {
                 Produto produtoLote = lote.getProdutos().get(0);
 
-                if (produtoLote.equals(produto)) {
-                    disponibilidadeProduto = Long.parseLong(Integer.toString(lote.getProdutos().size()));
-                    break;
+                Calendar hoje = Calendar.getInstance();
+                hoje.set(Calendar.HOUR_OF_DAY, 0);
+
+                if (lote.getDataValidade().after(hoje)) {
+                    if (produtoLote.equals(produto)) {
+                        disponibilidadeProduto = Long.parseLong(Integer.toString(lote.getProdutos().size()));
+                        break;
+                    }
                 }
             }
         }
