@@ -58,7 +58,7 @@ public class Venda {
 
     public ArrayList<Produto> obterProdutosItem(int posicao) {
         return itens.get(posicao).getProdutos();
-    }
+    }    
     
     public  void adicionarProdutosItem(int posicao,ArrayList<Produto> produtos){
         if(estado.equals("em aberto")){
@@ -72,6 +72,10 @@ public class Venda {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public ArrayList<ItemProduto> getItens() {
+        return itens;
     }
     
     

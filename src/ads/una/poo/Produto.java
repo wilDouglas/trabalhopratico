@@ -72,6 +72,7 @@ public abstract class Produto {
     @Override
     public boolean equals(Object obj) {
         Produto produto = (Produto) obj;
+        
         if(produto.getNome().equals(nome))
         {
             return true;

@@ -5,6 +5,7 @@
  */
 package ads.una.poo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class Estoque implements InterfaceEstoque {
 
     private List<Lote> lotes;
+    private Double estimativaLucro;
 
     @Override
     public void registrarLote(Lote lote) {
@@ -23,7 +25,28 @@ public class Estoque implements InterfaceEstoque {
 
     @Override
     public void processarVenda(Venda venda) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<ItemProduto> itens = venda.getItens();
+
+        for (ItemProduto item : itens) {
+
+            ArrayList<Produto> produtosCompra = item.getProdutos();
+
+            for (Produto produtoCompra : produtosCompra) {
+
+                for (Lote lote : this.lotes) {
+                    ArrayList<Produto> produtosLote = lote.getProdutos();
+
+                    for (int i = produtosLote.size() - 1; i == 0; i--) {
+
+                        Produto produtoLote = produtosLote.get(i);
+                        
+                        if (produtoLote.equals(produtoCompra)) {
+                            produtosLote.remove(i);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -49,6 +72,10 @@ public class Estoque implements InterfaceEstoque {
         }
 
         return disponibilidadeProduto;
+    }
+
+    public Double getEstimativaLucro() {
+        return estimativaLucro;
     }
 
 }
