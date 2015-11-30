@@ -17,8 +17,7 @@ public abstract class Produto {
     private int codBarras;
     private String nome;
     private String descricao;
-    private String categoria;
-    private ArrayList<Double> historicoVendas; 
+    private String categoria; 
     private int diasGarantiaPosVenda;
 
     public Produto(int codBarras, String nome, String descricao, String categoria, int diasGarantiaPosVenda) {

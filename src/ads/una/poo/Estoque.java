@@ -17,6 +17,12 @@ public class Estoque implements InterfaceEstoque {
 
     private List<Lote> lotes;
     private Double estimativaLucro;
+    private ArrayList<Venda> historicoVendas;
+
+    public Estoque() {
+        this.lotes = new ArrayList<>();
+        this.historicoVendas = new ArrayList<>();
+    }
 
     @Override
     public void registrarLote(Lote lote) {
@@ -34,14 +40,24 @@ public class Estoque implements InterfaceEstoque {
             for (Produto produtoCompra : produtosCompra) {
 
                 for (Lote lote : this.lotes) {
-                    ArrayList<Produto> produtosLote = lote.getProdutos();
 
-                    for (int i = produtosLote.size() - 1; i == 0; i--) {
+                    Calendar dataHoje = Calendar.getInstance();
 
-                        Produto produtoLote = produtosLote.get(i);
-                        
-                        if (produtoLote.equals(produtoCompra)) {
-                            produtosLote.remove(i);
+                    if (lote.getDataValidade().before(dataHoje)) {
+
+                        ArrayList<Produto> produtosLote = lote.getProdutos();
+
+                        if (produtosLote.size() > 0) {
+                            for (int i = produtosLote.size() - 1; i == 0; i--) {
+
+                                Produto produtoLote = produtosLote.get(i);
+
+                                if (produtoLote.equals(produtoCompra)) {
+                                    this.estimativaLucro += lote.getPrecoUnitario();
+                                    historicoVendas.add(venda);
+                                    produtosLote.remove(i);
+                                }
+                            }
                         }
                     }
                 }
@@ -78,4 +94,27 @@ public class Estoque implements InterfaceEstoque {
         return estimativaLucro;
     }
 
+    public ArrayList<Lote> listLotesVencidos() {
+        ArrayList<Lote> lotesVencidos = new ArrayList<>();
+
+        for (Lote lote : lotes) {
+            if (lote.getDataValidade().before(Calendar.getInstance())) {
+                lotesVencidos.add(lote);
+            }
+        }
+
+        return lotesVencidos;
+    }
+
+    public ArrayList<Lote> listLotesAcabados() {
+        ArrayList<Lote> lotesAcabados = new ArrayList<>();
+
+        for (Lote lote : lotes) {
+            if (lote.getProdutos().size() == 0) {
+                lotesAcabados.add(lote);
+            }
+        }
+
+        return lotesAcabados;
+    }     
 }

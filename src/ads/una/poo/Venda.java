@@ -6,6 +6,7 @@
 package ads.una.poo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -17,9 +18,11 @@ public class Venda {
     private ArrayList<ItemProduto> itens;
     private String estado;
     private double valorDesconto;
-
-    public Venda(String estado) {
-        this.estado = estado;
+    private Calendar dataVenda;
+    
+    public Venda() {
+        dataVenda = Calendar.getInstance();
+        this.estado = "em aberto";
         this.valorDesconto = 0;
         itens = new ArrayList<>();
     }
@@ -77,7 +80,12 @@ public class Venda {
     public ArrayList<ItemProduto> getItens() {
         return itens;
     }
+
+    public Calendar getDataVenda() {
+        return dataVenda;
+    }
     
+       
     
 
 }
